@@ -1,0 +1,20 @@
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: "http://localhost:5000/api", // replace with your backend
+  withCredentials: true, // for cookies
+});
+
+// Auth APIs
+export const login = (data) => api.post("/auth/login", data);
+export const register = (data) => api.post("/auth/register", data);
+export const logout = () => api.post("/auth/logout");
+export const profile = () => api.get("/auth/profile");
+
+// Task APIs
+export const getTasks = () => api.get("/tasks");
+export const addTask = (data) => api.post("/tasks", data);
+export const updateTask = (id, data) => api.put(`/tasks/${id}`, data);
+export const deleteTask = (id) => api.delete(`/tasks/${id}`);
+
+export default api;
