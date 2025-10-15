@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api", // backend URL
-  withCredentials: true, // send cookies
+  baseURL: "https://knit-wmu1.onrender.com/api",
+  withCredentials: true,
 });
 
 export default api;
