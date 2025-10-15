@@ -39,7 +39,11 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ message: "Invalid Credentials" });
 
     const token = generateToken(user.id);
-    res.cookie("token", token, { httpOnly: true });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true, // required for HTTPS (Render uses HTTPS)
+      sameSite: "none", // required for cross-site cookies
+    });
 
     return res.json({
       user: { id: user.id, name: user.name, email: user.email, token },
