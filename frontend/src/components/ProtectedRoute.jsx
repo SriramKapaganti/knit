@@ -1,10 +1,11 @@
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { profile } from "../services/auth";
 
 const ProtectedRoute = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -23,7 +24,7 @@ const ProtectedRoute = ({ children }) => {
 
   if (loading) return <div>Loading...</div>; // better UX
 
-  return user ? children : <Navigate to="/login" />;
+  return user ? children : navigate("/login");
 };
 
 export default ProtectedRoute;
