@@ -1,26 +1,27 @@
 import { Navigate } from "react-router-dom";
-import { profile } from "../services/auth";
 import { useEffect, useState } from "react";
+import { profile } from "../services/auth";
 
 const ProtectedRoute = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // tracking loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const res = await profile();
-        setUser(res.data.user); //-- backend returns user object
-      } catch {
-        setUser(null); // if error, treated as not logged in
+        setUser(res.data.user); // ensure backend returns { user: {...} }
+      } catch (err) {
+        console.log(err);
+        setUser(null);
       } finally {
         setLoading(false);
       }
     };
     fetchUser();
-  }, []); // empty array runs only once
+  }, []);
 
-  if (loading) return null; //  spinner
+  if (loading) return <div>Loading...</div>; // better UX
 
   return user ? children : <Navigate to="/login" />;
 };
