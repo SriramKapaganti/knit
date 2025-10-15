@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api", // replace with your backend
+  baseURL: "https://knit-wmu1.onrender.com", // replace with your backend
   withCredentials: true, // for cookies
 });
 
